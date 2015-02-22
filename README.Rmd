@@ -1,0 +1,45 @@
+---
+title: "README"
+author: "Bryan J. Park"
+date: "Saturday, February 21, 2015"
+output: html_document
+---
+
+creating directory, downloading zip file.
+unzip file to specified directory, using curl
+```{r}
+dir.create("./data")
+download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", destfile="./data/Dataset.zip", method="curl")
+
+```
+
+
+unzip file in directroy,
+specifying path
+```{r}
+
+unzip(zipfile="./data/Dataset.zip", exdir='./data')
+zippath=file.path("./data", "UCI HAR Dataset")
+```
+
+creating tables out of .txt file
+```{r}
+xtrain= read.table("./UCI HAR Dataset/train/X_train.txt")
+ytrain= read.table("./UCI HAR Dataset/train/y_train.txt")
+xtest= read.table("./UCI HAR Dataset/train/X_test.txt")
+ytest= read.table("./UCI HAR Dataset/train/y_test.txt")
+```
+
+creating actual tables combined of x and y
+```{r}
+x=rbind(xtrain,xtest, byrow=T)
+y=rbind(ytrain,ytest, byrow=T)
+```
+
+creating new table, 2nd after taking names and using describors. 
+```{r}
+activitynames= read.table("./UCI HAR Dataset/activity_labels.txt")
+data2= aggregate("./UCI HAR Dataset/activity_labels.txt", data, xtest)
+
+```
+
