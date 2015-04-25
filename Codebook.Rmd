@@ -4,19 +4,31 @@ author: "Bryan J. Park"
 date: "Saturday, February 21, 2015"
 output: html_document
 ---
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+summary of variables and taken tables:
 
 ```{r}
-summary(cars)
+zippath=file.path("./data", "UCI HAR Dataset")
+```
+zippath describes the file path location where the data will be located
+
+
+```{r}
+xtrain= read.table("./UCI HAR Dataset/train/X_train.txt")
+ytrain= read.table("./UCI HAR Dataset/train/y_train.txt")
+xtest= read.table("./UCI HAR Dataset/train/X_test.txt")
+ytest= read.table("./UCI HAR Dataset/train/y_test.txt")
+```
+x/y train/test are pulled directly from the .txt file unzipped into the directory.  These files can be determined by the designator
+"./UCI HAR Dataset/train/XorY_trainortest.txt"
+
+
+
+```{r}
+x=rbind(xtrain,xtest, byrow=T)
+y=rbind(ytrain,ytest, byrow=T)
 ```
 
-You can also embed plots, for example:
-
-```{r, echo=FALSE}
-plot(cars)
+```{r}
+activitynames= read.table("./UCI HAR Dataset/activity_labels.txt")
+data2= aggregate("./UCI HAR Dataset/activity_labels.txt", data, xtest)
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
